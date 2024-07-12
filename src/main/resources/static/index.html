@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KUIKUI</title>
+  <script  src="./js/jquery-3.7.1.min.js" ></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+</head>
+
+<body>
+  <header style="position: fixed; width: 100%; z-index: 999;"></header>
+  <!-- 轮播 -->
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" style="padding-top: 100px;">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="./images/1.jpg" class="d-block w-100" alt="..." style="object-fit: cover;">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>测试</h5>
+          <p></p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="./images/2.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>前端</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./images/3.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>后端</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="content">
+    <div class="content-left" style="flex-grow: 4;">
+
+
+    </div>
+
+    <div>
+      <a href="https://beian.miit.gov.cn">豫ICP备2024077864号</a>
+    </div>
+  </div>
+
+
+
+  <script>
+    $(function () {
+      $("header").load("header.html")
+
+      $.get(
+        "article/get",
+        function (data) {
+          data.msg.forEach(element => {
+            let urlname = element.article_cover
+            let auto = element.article_auth
+            let urlid = element.article_id
+            let title = element.article_title
+            let desc = element.article_desc
+            let date = new Date(element.publish_time)
+            var year = date.getFullYear();   // 获取年份，例如 2024
+            var month = date.getMonth() + 1; // 获取月份，注意月份是从 0 开始计数的，所以要加 1
+            var day = date.getDate();        // 获取日期，例如 10
+            var hours = date.getHours();     // 获取小时，例如 11
+            var minutes = date.getMinutes(); // 获取分钟，例如 55
+            var seconds = date.getSeconds(); // 获取秒数，例如 56
+            // 如果你想以特定格式显示日期和时间，可以使用以下方法
+            var formattedDateTime = date.toLocaleString(); // 使用本地格式显示日期和时间
+            $(".content-left").append(`
+                <a href="/blog.html?id=${urlid}" style="text-decoration: none;">
+                  <div class="card mb-3" style="max-width: 840px;">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="${urlname}" class="img-fluid rounded-start" alt="..." id="indeximg">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">${title}</h5>
+                          <p class="card-text">${desc}</p>
+                          <p class="card-text"><small class="text-muted">作者：${auto} 发布时间：${formattedDateTime}</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+            `)
+
+          });
+        }
+      )
+    })
+  </script>
+
+</body>
+
+</html>

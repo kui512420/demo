@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+</head>
+
+<body>
+    <header></header>
+
+    <section>
+        <h3>推荐先用makedown写完后复制粘贴进来，效果最佳哦！</h3>
+        <div>
+            文章标题:<input type="text" id="title"><br>
+            文章标签:
+            <select id="tagval">
+                <option value="1">前端</option>
+                <option value="2">后端</option>
+                <option value="3">Andriod</option>
+                <option value="4">IOS</option>
+                <option value="5">人工智能</option>
+                <option value="6">数据库</option>
+                <option value="7">程序开发</option>
+            </select><br>
+            文章描述:<input type="text" id="desc"><br>
+            <label for="fileInput2"
+                style="display: block; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc; cursor: pointer;">
+                上传文章封面：
+                <input type="file" name="fileInput" id="fileInput2" style="display: none;">
+                <img height="100px" width="200px" id="artcover">
+            </label><br>
+            <button id="fbbtn">发布</button>
+        </div>
+        <!-- 编辑器容器 -->
+        <div id="editor">
+
+        </div>
+    </section>
+    <!-- 初始化编辑器 -->
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        $(function () {
+            var formData = new FormData()
+            // 使用jQuery的方法绑定change事件
+            $('#fileInput2').change(function () {
+                const files = this.files // 原生DOM对象的files属性
+                const fileURL = URL.createObjectURL(files[0]) // 创建文件URL
+                $("#artcover").attr("src", fileURL)
+                formData.append('fileInput', files[0]);
+            })
+
+
+            $("header").load("header.html")
+
+            $("#fbbtn").click(function () {
+                formData.append('article_title', $("#title").val());
+                formData.append('article_content', $(".ql-editor").html());
+                formData.append('article_desc', $("#desc").val());
+                formData.append('article_type', $("#tagval").val());
+                $.ajax({
+                    url: "article/add",
+                    type: "post",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (jqXHR, settings) {
+                        jqXHR.setRequestHeader('token', localStorage.getItem("token"));
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            alert("文章添加成功！");
+                        } else {
+                            alert("文章添加失败！");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("发生错误：" + error);
+                    }
+                });
+
+
+
+            })
+
+
+        })
+
+    </script>
+</body>
+
+</html>

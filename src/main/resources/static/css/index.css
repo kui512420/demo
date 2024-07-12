@@ -1,0 +1,29 @@
+.content {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.d-block {
+    height: 200px;
+}
+
+.card-text{
+    /* 设置文本显示多行 */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 这里设置你希望显示的行数 */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+@media (max-width: 990px) {
+    .content {
+        flex-direction: column;
+    }
+
+}
+#indeximg{
+    width: 100%;
+    height: 150px;
+}

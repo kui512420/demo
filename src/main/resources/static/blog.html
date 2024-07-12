@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <header></header>
+
+
+    <section>
+        <h5 id="title" style="text-align: center; padding: 20px;"></h5>
+        <div style="text-align: center; padding: 10px;"> <span id="auth"></span> &nbsp;<span id="time"></span></div>
+    </section>
+
+
+    <script>
+        $(function () {
+            let artid = window.location + ""
+
+            $("header").load("header.html")
+            $.get(
+                "article/get?" + artid.substring(artid.indexOf("id")),
+                function (data) {
+                    $("#title").text(data.msg.article_title)
+                    $("#auth").text("作者："+data.msg.article_auth)
+                    let date = new Date(data.msg.publish_time)
+                    var year = date.getFullYear();   // 获取年份，例如 2024
+                    var month = date.getMonth() + 1; // 获取月份，注意月份是从 0 开始计数的，所以要加 1
+                    var day = date.getDate();        // 获取日期，例如 10
+                    var hours = date.getHours();     // 获取小时，例如 11
+                    var minutes = date.getMinutes(); // 获取分钟，例如 55
+                    var seconds = date.getSeconds(); // 获取秒数，例如 56
+                    // 如果你想以特定格式显示日期和时间，可以使用以下方法
+                    var formattedDateTime = date.toLocaleString(); // 使用本地格式显示日期和时间
+                    $("#time").text("发布时间："+formattedDateTime)
+                    $("section").append(data.msg.article_content)
+                }
+            )
+        })
+    </script>
+</body>
+
+</html>
