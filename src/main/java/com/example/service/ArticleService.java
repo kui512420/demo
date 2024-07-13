@@ -13,5 +13,7 @@ public interface ArticleService {
     public List<Article> queryArticle();
     //通过id查文章
     public Article queryArticleByid(String id);
+    //通过类型查询文章
+    public List<Article> queryArticleBytype(String type);
 
 }

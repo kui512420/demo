@@ -40,4 +40,10 @@ public class ArticleServiceImpl implements ArticleService{
         Article article = articleMapper.selectById(id);
         return article;
     }
+
+    @Override
+    public List<Article> queryArticleBytype(String article_type) {
+        List<Article> articles = articleMapper.selectByArticleType(article_type);
+        return articles;
+    }
 }

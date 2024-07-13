@@ -80,7 +80,8 @@ public class ArticleController {
     @GetMapping("/get")
     @CrossOrigin//允许跨域请求
     public ResponseEntity<Map<String, Object>> login(
-            @RequestParam(value = "id", required = false) String id
+            @RequestParam(value = "id", required = false) String id,
+            @RequestParam(value = "article_type", required = false) String article_type
     ){
         //ArticleServiceImpl
         //获取一个文章实例
@@ -89,10 +90,16 @@ public class ArticleController {
         if(id!=null){
             Article article  = articleService.queryArticleByid(id);
             response.put("msg", article);
-        }else{
+        } else if (article_type!=null) {
+            List<Article> articles  = articleService.queryArticleBytype(article_type);
+            response.put("msg", articles);
+            return ResponseEntity.ok(response);
+        } else if (id==null && article_type==null) {
             List<Article> li  = articleService.queryArticle();
             response.put("msg", li);
         }
+
+
         response.put("date", new Date().getTime());
 
         return ResponseEntity.ok(response);
