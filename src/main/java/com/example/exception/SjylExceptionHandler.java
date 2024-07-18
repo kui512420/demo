@@ -29,14 +29,14 @@ public class SjylExceptionHandler {
         return result;
     }
     /*缺少参数*/
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseBody
-    public Map<Object, Object> IllegalArgumentException() {
-        Map<Object, Object> result = new LinkedHashMap();
-        result.put("code", 205);
-        result.put("msg", "缺少参数");
-        return result;
-    }
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    @ResponseBody
+//    public Map<Object, Object> IllegalArgumentException() {
+//        Map<Object, Object> result = new LinkedHashMap();
+//        result.put("code", 205);
+//        result.put("msg", "缺少参数");
+//        return result;
+//    }
 
 
 }

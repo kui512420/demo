@@ -16,8 +16,8 @@ public class JwtLogin {
     public  String jwtBd(User u) {
         JwtBuilder jwtBuilder = Jwts.builder();
         String token = jwtBuilder
-                .setHeaderParam("type","JWT")
                 .setHeaderParam("alg","HS256")
+                .setHeaderParam("type","JWT")
                 .claim("username",u.getUsername())
                 .claim("id",u.getId())
                 .setExpiration(new Date(System.currentTimeMillis()+time))
@@ -27,6 +27,7 @@ public class JwtLogin {
     }
 
     public Map<Object,Object> jwtPe(String token){
+        System.out.println(token);
         JwtParser jwtParser = Jwts.parser();
         Jws<Claims> claimsJwts = jwtParser.setSigningKey(sign).parseClaimsJws(token);
         Claims claims = claimsJwts.getBody();

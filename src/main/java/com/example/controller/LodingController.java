@@ -29,7 +29,7 @@ public class LodingController {
         JwtLogin jwtLogin = new JwtLogin();
         //获取id
         int id = Integer.parseInt(jwtLogin.jwtPe(token).get("id").toString());
-
+        System.out.println("id:"+id);
         String path = "/opt/project/userheader/"+ id+".jpg";
         Compressimg compressimg = new Compressimg();
         compressimg.compressImage(file,300,300,0.8f,path);

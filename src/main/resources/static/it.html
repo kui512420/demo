@@ -44,7 +44,7 @@
     <script>
         $("header").load("header.html")
         $.get(
-            "http://127.0.0.1/article/get?article_type=1",
+            "article/get?article_type=1",
             function (data) {
                 data.msg.forEach(element => {
                     let urlname = element.article_cover
@@ -103,7 +103,7 @@
             //获取请求对象
             var name = $(this).text().trim()
             $.get(
-                "http://127.0.0.1/article/get?article_type=" + getnum(name),
+                "article/get?article_type=" + getnum(name),
                 function (data) {
                     data.msg.forEach(element => {
                         let urlname = element.article_cover
