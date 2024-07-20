@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <header style="position: fixed; width: 100%; z-index: 999;"></header>
+    <section style="padding-top: 100px;">
+        <div class="card w-75 mb-3" style="margin: 0 auto;">
+            <div class="card-body">
+                <h5 class="card-title">视频解析</h5>
+                <p class="card-text"><input type="text" placeholder="请输入视频链接" id="url"></p>本项目的所有接口均来自互联网，仅供学习交流使用。
+                <br>
+                <a href="#" class="btn btn-primary" id="jx">解析</a>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        $(function () {
+            $("header").load("header.html")
+        })
+        $("#jx").click(function(){
+
+            window.open("https://jx.xmflv.com/?url="+$("#url").val())
+        })
+
+    </script>
+</body>
+
+</html>
